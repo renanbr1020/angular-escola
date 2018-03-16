@@ -45,7 +45,7 @@
                 <textarea id="descricao" name="descricao" [(ngModel)]="descricao"
                         cols="70" rows="5"></textarea>
             </div>
-            <button type="submit" [disabled]="!cadastro.valid"  (click)="formulario=null">Salvar</button>
+            <button type="submit" [disabled]="!cadastro.valid"  (click)="salvar();formulario=null">Salvar</button>
             <button type="reset" (click)="cancelar()">Cancelar</button>
         </form>
     </div>
