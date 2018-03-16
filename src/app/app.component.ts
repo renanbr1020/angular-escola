@@ -8,17 +8,18 @@ import {Disciplina} from './disciplina.model';
 })
 export class AppComponent {
   editando = null;
+  cod = null;
   nome = null;
   descricao = null;
   disciplinas = [
-    new Disciplina('Língua Portuguesa', 'O objetivo norteador da BNCC de ' +
+    new Disciplina('001','Língua Portuguesa', 'O objetivo norteador da BNCC de ' +
       'Língua Portuguesa é garantir a todos os alunos o acesso aos saberes ' +
       'linguísticos necessários para a participação social e o exercício da ' +
       'cidadania, pois é por meio da língua que o ser ' +
       'humano pensa, comunica-se, tem acesso à informação, expressa e ' +
       'defende pontos de vista, partilha ou constrói visões de mundo e ' +
       'produz conhecimento.'),
-    new Disciplina('Educação Física', 'A Educação Física é o componente ' +
+    new Disciplina('002','Educação Física', 'A Educação Física é o componente ' +
       'curricular que tematiza as práticas corporais em suas diversas formas ' +
       'de codificação e significação social, entendidas como manifestações ' +
       'das possibilidades expressivas dos sujeitos e patrimônio cultural ' +
@@ -27,7 +28,7 @@ export class AppComponent {
       'um deslocamento espaço-temporal de um segmento corporal ' +
       'ou de um corpo todo. Logo, as práticas corporais são textos culturais ' +
       'passíveis de leitura e produção.'),
-    new Disciplina('Inglês', 'Aprender a língua inglesa propicia a criação ' +
+    new Disciplina('003','Inglês', 'Aprender a língua inglesa propicia a criação ' +
       'de novas formas de engajamento e participação dos alunos em um mundo ' +
       'social cada vez mais globalizado e plural, em que as fronteiras ' +
       'entre países e interesses pessoais, locais, regionais, nacionais ' +
@@ -39,7 +40,7 @@ export class AppComponent {
       'formativo que inscreve a aprendizagem de inglês em uma perspectiva ' +
       'de educação linguística, consciente e crítica, na qual as dimensões ' +
       'pedagógicas e políticas são intrinsecamente ligadas.'),
-    new Disciplina('Matemática', 'No Ensino Fundamental, essa área, por ' +
+    new Disciplina('004','Matemática', 'No Ensino Fundamental, essa área, por ' +
       'meio da articulação de seus diversos campos – Aritmética, Álgebra, ' +
       'Geometria, Estatística e Probabilidade – precisa garantir que os ' +
       'alunos relacionem observações empíricas do mundo real a ' +
@@ -53,7 +54,7 @@ export class AppComponent {
       'algumas propriedades e a verificação de conjecturas, a partir ' +
       'de outras, podem ser estimuladas, sobretudo ao final do ' +
       'Ensino Fundamental.'),
-    new Disciplina('Ciências', 'Ao estudar Ciências, as pessoas aprendem ' +
+    new Disciplina('005', 'Ciências','Ao estudar Ciências, as pessoas aprendem ' +
       'a respeito de si mesmas, da diversidade e dos processos de evolução ' +
       'e manutenção da vida, do mundo material – com os seus recursos ' +
       'naturais, suas transformações e fontes de energia –, do nosso ' +
@@ -65,12 +66,14 @@ export class AppComponent {
 
   salvar() {
     if (this.editando) {
-      this.editando.nome = this.nome;
-      this.editando.descricao = this.descricao;
+        this.editando.cod = this.cod;
+        this.editando.nome = this.nome;
+        this.editando.descricao = this.descricao;
     } else {
-      const d = new Disciplina(this.nome, this.descricao);
+      const d = new Disciplina(this.cod, this.nome, this.descricao);
       this.disciplinas.push(d);
     }
+    this.cod = null;
     this.nome = null;
     this.descricao = null;
     this.editando = null;
@@ -89,12 +92,14 @@ export class AppComponent {
   }
 
   editar(disciplina) {
+    this.cod = disciplina.cod;
     this.nome = disciplina.nome;
     this.descricao = disciplina.descricao;
     this.editando = disciplina;
   }
 
   cancelar() {
+    this.cod = null;
     this.nome = null;
     this.descricao = null;
     this.editando = null;
