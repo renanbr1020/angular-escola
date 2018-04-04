@@ -71,6 +71,9 @@ export class AppComponent {
       'compreendam, expliquem e intervenham no mundo em que vivem.')
   ];
 
+  constructor(){
+    this.invocar_cache();
+  }
  
 
   salvar() {
@@ -83,10 +86,15 @@ export class AppComponent {
       this.editando.tipo = this.tipo;
       this.editando.periodo = this.periodo;
       this.editar_ok = true;
+
+      this.armazenar_cache(this.editando);
+
     } else {
       const d = new Disciplina(this.codigo, this.nome, this.descricao,this.data,this.ativo,this.tipo,this.periodo);
       this.disciplinas.push(d);
-      localStorage.setItem("Disciplina",JSON.stringify(d));
+
+      this.armazenar_cache(d);
+ 
       this.salvar_ok = true;
     }
     this.codigo = null;
@@ -108,6 +116,9 @@ export class AppComponent {
       if (confirm('Tem certeza que deseja excluir a disciplina "'
           + disciplina.nome + '"?')) {
         const i = this.disciplinas.indexOf(disciplina);
+        
+        this.remover_cache(disciplina);
+
         this.disciplinas.splice(i, 1);
         this.excluir_ok = true;
       }
@@ -144,4 +155,20 @@ export class AppComponent {
     this.salvar_ok = false;
     this.editar_ok = false;
   }
+
+  armazenar_cache(disciplina){
+    localStorage.setItem((disciplina.codigo).toString(), JSON.stringify(disciplina));
+  }
+  remover_cache(disciplina){
+    localStorage.removeItem(disciplina.codigo);
+  }
+  invocar_cache(){
+      for(const i in localStorage){
+          const e = JSON.parse(localStorage.getItem(i));
+          if(e != undefined){
+              this.disciplinas.push(e);
+          }
+      }
+  }
+
 }
