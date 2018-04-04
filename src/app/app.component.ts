@@ -71,6 +71,10 @@ export class AppComponent {
       'compreendam, expliquem e intervenham no mundo em que vivem.')
   ];
 
+  constructor(){
+    this.invocar_cache();
+  }
+
   salvar() {
     if (this.editando) {
       this.editando.codigo = this.codigo;
