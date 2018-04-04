@@ -1,24 +1,25 @@
-<h1>Disciplinas</h1>
-<hr>
+<div class = "container"></div>
+    <h1>Disciplinas</h1>
+    <hr>
 
-  <table border="1" cellpadding=2 cellspacing=0>
-      <tr>
-        <th>Código</th>
-        <th>Nome</th>
-        <th>Detalhes</th>
-      </tr>
-      <tr *ngFor="let disciplina of disciplinas">
-          <td width='40px'>{{disciplina.cod}} </td>
-          <td width='400px'>{{disciplina.nome}}</td>
-          <td width='100px'><p style="font-weight: bold" (click)="selecionar(disciplina)">{{disciplina.detalhes}} </p> </td>
-        </tr> 
-    </table>
-    
-    <div *ngFor="let disciplina of disciplinas">
-        <p *ngIf="selecionado == disciplina" style="font-weight: bold">Nome da Disciplina: {{disciplina.nome}}</p>
-        <p *ngIf="selecionado == disciplina" style="font-weight: bold">Professor: {{disciplina.professor}}</p>
-        <p *ngIf="selecionado == disciplina" style="font-weight: bold"> Descrição: {{disciplina.descricao}}</p>
-    </div>
-    
+    <table border="1" cellpadding=2 cellspacing=0>
+        <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Detalhes</th>
+        </tr>
+        <tr *ngFor="let disciplina of disciplinas">
+            <td width='40px'>{{disciplina.cod}} </td>
+            <td width='400px'>{{disciplina.nome}}</td>
+            <td width='100px'><p style="font-weight: bold" (click)="selecionar(disciplina)">{{disciplina.detalhes}} </p> </td>
+            </tr> 
+        </table>
+        
+        <div *ngFor="let disciplina of disciplinas">
+            <p *ngIf="selecionado == disciplina" style="font-weight: bold">Nome da Disciplina: {{disciplina.nome}}</p>
+            <p *ngIf="selecionado == disciplina" style="font-weight: bold">Professor: {{disciplina.professor}}</p>
+            <p *ngIf="selecionado == disciplina" style="font-weight: bold"> Descrição: {{disciplina.descricao}}</p>
+        </div>
+</div>    
 
 
