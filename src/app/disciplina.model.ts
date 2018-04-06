@@ -1,20 +1,18 @@
 export class Disciplina {
-  codigo: string;
+  matricula: string;
   nome: string;
-  descricao: string;
   data: Date;
-  ativo: string;
+  responsavel: string;
+  observacao: string;
   tipo: string;
-  periodo:string;
   
-  constructor(codigo:string,nome: string, descricao?: string, data?:Date, ativo?:string, tipo?:string, periodo?: string) {
-    this.codigo = codigo;
+  constructor(matricula:string,nome: string, data:Date, responsavel?:string, observacao?: string,tipo?:string, ) {
+    this.matricula = matricula;
     this.nome = nome;
-    this.descricao = descricao;
     this.data = data;
-    this.ativo = ativo;
+    this.responsavel = responsavel;
+    this.observacao = observacao;
     this.tipo = tipo;
-    this.periodo = periodo;
-   
+  
   }
 }
