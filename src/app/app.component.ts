@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Ocorrencia} from './ocorrencia.model';
+import {Aluno} from './aluno.model';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +20,21 @@ export class AppComponent {
   salvar_ok = false;
   ocorrencias = [
     new Ocorrencia('001','Pedro', new Date(4-4-2018)),
-    new Ocorrencia('002','Maria', new Date()),
-    new Ocorrencia('003','Marcos', new Date()),
-    new Ocorrencia('004','Matheus', new Date()),
     new Ocorrencia('005','João Alberto',new Date(),'Comportamento inadequado com colegas'),
     new Ocorrencia('006','Maria Clara',new Date(),'Baixo índice de rendimento'),
     new Ocorrencia('007','Ismael',new Date(),'Indisciplina em sala de aula'),
+    
+  ];
+
+  alunos = [
+    new Aluno('001','Pedro'),
+    new Aluno('002','Maria'),
+    new Aluno('003','Marcos'),
+    new Aluno('004','Renan'),
+    new Aluno('005','João Alberto'),,
+    new Aluno('006','Maria Clara'),
+    new Aluno('007','Ismael'),
+
     
   ];
 
@@ -32,8 +42,21 @@ export class AppComponent {
     this.invocar_cache();
   }
  
+  /*
+  verificarmatricula(valor){
+    this.alunos.forEach(function(valorA,chaveA){
+      if (this.alunos.matricula = valor){
+        return true;
+      }else{
+        return false;
+      }
+  
+    });
+  }
+  
+  */
 
-  salvar() {
+  salvar(valor) {
     if (this.editando) {
       this.editando.matricula = this.matricula;
       this.editando.nome = this.nome;
@@ -42,16 +65,20 @@ export class AppComponent {
       this.editando.observacao = this.observacao;
       this.editando.tipo = this.tipo;
     
-
       this.armazenar_cache(this.editando);
 
     } else {
+
+      //if (this.verificarmatricula(valor)){
+
       const o = new Ocorrencia(this.matricula, this.nome, this.data,this.responsavel,this.observacao,this.tipo);
       this.ocorrencias.push(o);
 
       this.armazenar_cache(o);
  
       this.salvar_ok = true;
+      //}
+ 
     }
     this.matricula = null;
     this.nome = null;
@@ -62,7 +89,6 @@ export class AppComponent {
 
     this.editando = null;
   }
-
 
   armazenar_cache(disciplina){
     localStorage.setItem((disciplina.matricula).toString(), JSON.stringify(disciplina));
