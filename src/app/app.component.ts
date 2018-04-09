@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Disciplina} from './disciplina.model';
+import {Ocorrencia} from './ocorrencia.model';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +18,13 @@ export class AppComponent {
   
   salvar_ok = false;
   ocorrencias = [
-    new Disciplina('001','Pedro', new Date(4-4-2018)),
-    new Disciplina('002','Maria', new Date()),
-    new Disciplina('003','Marcos', new Date()),
-    new Disciplina('004','Matheus', new Date()),
+    new Ocorrencia('001','Pedro', new Date(4-4-2018)),
+    new Ocorrencia('002','Maria', new Date()),
+    new Ocorrencia('003','Marcos', new Date()),
+    new Ocorrencia('004','Matheus', new Date()),
+    new Ocorrencia('005','João Alberto',new Date(),'Comportamento inadequado com colegas'),
+    new Ocorrencia('006','Maria Clara',new Date(),'Baixo índice de rendimento'),
+    new Ocorrencia('007','Ismael',new Date(),'Indisciplina em sala de aula'),
     
   ];
 
@@ -43,7 +46,7 @@ export class AppComponent {
       this.armazenar_cache(this.editando);
 
     } else {
-      const o = new Disciplina(this.matricula, this.nome, this.data,this.responsavel,this.observacao,this.tipo);
+      const o = new Ocorrencia(this.matricula, this.nome, this.data,this.responsavel,this.observacao,this.tipo);
       this.ocorrencias.push(o);
 
       this.armazenar_cache(o);
@@ -56,32 +59,15 @@ export class AppComponent {
     this.responsavel= null;    
     this.observacao = null;
     this.tipo = null;
-    this.editando = null;
-  }
-
-  cancelar() {
-    this.redefinir();
-  }
-
-  redefinir() {
-    this.matricula = null;
-    this.nome = null;
-    this.data = null;
-    this.responsavel = null;
-    this.observacao = null;
-    this.tipo = null;
 
     this.editando = null;
-    this.salvar_ok = false;
-   
   }
+
 
   armazenar_cache(disciplina){
-    localStorage.setItem((disciplina.codigo).toString(), JSON.stringify(disciplina));
+    localStorage.setItem((disciplina.matricula).toString(), JSON.stringify(disciplina));
   }
-  remover_cache(disciplina){
-    localStorage.removeItem(disciplina.codigo);
-  }
+
   invocar_cache(){
       for(const i in localStorage){
           const e = JSON.parse(localStorage.getItem(i));

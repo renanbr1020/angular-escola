@@ -1,4 +1,4 @@
-export class Disciplina {
+export class Ocorrencia{
   matricula: string;
   nome: string;
   data: Date;
