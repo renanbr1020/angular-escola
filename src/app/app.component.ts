@@ -24,6 +24,9 @@ export class AppComponent {
   cont_marco = 0;
   relacao_ocorrencias = 0;
 
+  status_relacaoT =true;
+  status_relacaoF =false;
+
   tipos = [
     new TipoDeOcorrencia(0, 'indisciplina em sala de aula'),
     new TipoDeOcorrencia(1, 'comportamento inadequado com colegas'),
@@ -50,6 +53,8 @@ export class AppComponent {
     this.contadores = [0, 0, 0, 0];
     this.cont_abril = 0;
     this.cont_marco = 0;
+   
+    
     for (var i = 0; i < this.ocorrencias.length; i++) {
       this.contadores[this.ocorrencias[i].tipo]++;
       if (this.ocorrencias[i].data.indexOf("-04-") != -1) {
@@ -61,6 +66,14 @@ export class AppComponent {
     }
     if (this.cont_marco != 0) {
       this.relacao_ocorrencias = (this.cont_abril - this.cont_marco)/this.cont_marco * 100;
+
+      if (this.relacao_ocorrencias >= 0){
+        this.status_relacaoT = true;
+        this.status_relacaoF = false;
+      }else{
+        this.status_relacaoF = true;
+        this.status_relacaoT = false;
+      }
     }
     for (var i = 0; i < 4; i++) {
       this.porcentagens[i] = this.contadores[i] / this.ocorrencias.length * 100;
