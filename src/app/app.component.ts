@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Ocorrencia} from './ocorrencia.model';
-import {Aluno} from './aluno.model';
+import {TipoDeOcorrencia} from "./tipo-de-ocorrencia.model";
+import {Ocorrencia} from "./ocorrencia.model";
 
 @Component({
   selector: 'app-root',
@@ -8,99 +8,77 @@ import {Aluno} from './aluno.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  editando = null;
-
-  matricula = null;
-  nome = null;
+  ocorrencias = [];
+  aluno_matricula = null;
+  aluno_nome = null;
   data = null;
-  responsavel = null;
-  observacao = null;
+  pai_ou_responsavel_compareceu = false;
+  pai_ou_responsavel_nome = null;
   tipo = null;
-  
+  observacao = null;
   salvar_ok = false;
-  ocorrencias = [
-    new Ocorrencia('001','Pedro', new Date(4-4-2018)),
-    new Ocorrencia('005','João Alberto',new Date(),'Comportamento inadequado com colegas'),
-    new Ocorrencia('006','Maria Clara',new Date(),'Baixo índice de rendimento'),
-    new Ocorrencia('007','Ismael',new Date(),'Indisciplina em sala de aula'),
-    
+
+  contadores = [0, 0, 0, 0];
+  porcentagens = [0, 0, 0, 0];
+  cont_abril = 0;
+  cont_marco = 0;
+  relacao_ocorrencias = 0;
+
+  tipos = [
+    new TipoDeOcorrencia(0, 'indisciplina em sala de aula'),
+    new TipoDeOcorrencia(1, 'comportamento inadequado com colegas'),
+    new TipoDeOcorrencia(2, 'baixo índice de rendimento'),
+    new TipoDeOcorrencia(3, 'indicação de atenção por assunto familiar, psicológico ou social')
   ];
 
-  alunos = [
-    new Aluno('001','Pedro'),
-    new Aluno('002','Maria'),
-    new Aluno('003','Marcos'),
-    new Aluno('004','Renan'),
-    new Aluno('005','João Alberto'),,
-    new Aluno('006','Maria Clara'),
-    new Aluno('007','Ismael'),
-
-    
-  ];
-
-  constructor(){
-    this.invocar_cache();
+  salvar() {
+    const ocorrencia = new Ocorrencia(this.aluno_matricula,
+      this.aluno_nome,
+      this.data,
+      this.pai_ou_responsavel_compareceu,
+      this.pai_ou_responsavel_nome,
+      this.observacao,
+      this.tipo);
+    this.ocorrencias.push(ocorrencia);
+    this.salvar_ok = true;
+    this.atualizarEstatisticas();
+    this.iniciar();
   }
- 
-  /*
-  verificarmatricula(valor){
-    this.alunos.forEach(function(valorA,chaveA){
-      if (this.alunos.matricula = valor){
-        return true;
-      }else{
-        return false;
+
+
+  atualizarEstatisticas() {
+    this.contadores = [0, 0, 0, 0];
+    this.cont_abril = 0;
+    this.cont_marco = 0;
+    for (var i = 0; i < this.ocorrencias.length; i++) {
+      this.contadores[this.ocorrencias[i].tipo]++;
+      if (this.ocorrencias[i].data.indexOf("-04-") != -1) {
+        this.cont_abril++;
       }
-  
-    });
-  }
-  
-  */
-
-  salvar(valor) {
-    if (this.editando) {
-      this.editando.matricula = this.matricula;
-      this.editando.nome = this.nome;
-      this.editando.data = this.data;
-      this.editando.responsavel = this.responsavel;
-      this.editando.observacao = this.observacao;
-      this.editando.tipo = this.tipo;
-    
-      this.armazenar_cache(this.editando);
-
-    } else {
-
-      //if (this.verificarmatricula(valor)){
-
-      const o = new Ocorrencia(this.matricula, this.nome, this.data,this.responsavel,this.observacao,this.tipo);
-      this.ocorrencias.push(o);
-
-      this.armazenar_cache(o);
- 
-      this.salvar_ok = true;
-      //}
- 
+      if (this.ocorrencias[i].data.indexOf('-03-') != -1) {
+        this.cont_marco++;
+      }
     }
-    this.matricula = null;
-    this.nome = null;
+    if (this.cont_marco != 0) {
+      this.relacao_ocorrencias = (this.cont_abril - this.cont_marco)/this.cont_marco * 100;
+    }
+    for (var i = 0; i < 4; i++) {
+      this.porcentagens[i] = this.contadores[i] / this.ocorrencias.length * 100;
+    }
+  }
+
+  cancelar() {
+    this.iniciar();
+    this.salvar_ok = false;
+  }
+
+  iniciar() {
+    this.aluno_matricula = null;
+    this.aluno_nome = null;
     this.data = null;
-    this.responsavel= null;    
-    this.observacao = null;
+    this.pai_ou_responsavel_compareceu = false;
+    this.pai_ou_responsavel_nome = null;
     this.tipo = null;
-
-    this.editando = null;
+    this.observacao = null;
   }
-
-  armazenar_cache(disciplina){
-    localStorage.setItem((disciplina.matricula).toString(), JSON.stringify(disciplina));
-  }
-
-  invocar_cache(){
-      for(const i in localStorage){
-          const e = JSON.parse(localStorage.getItem(i));
-          if(e != undefined){
-              this.ocorrencias.push(e);
-          }
-      }
-  }
-
 }
