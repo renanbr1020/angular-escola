@@ -19,8 +19,19 @@
 
 </ul>
 
-
-<div> {{status_relacao}} </div>
+<h2> Pesquisar por período de data</h2>
+   <div>
+        <div>
+          <label for="dataInicio">Data Inicio</label>
+          <input type="date" id="dataInicio" name="dataInicio" [(ngModel)]="dataInicio">
+        </div>
+        <div >
+            <label for="dataFinal" >Data Final</label>
+            <input type="date" id="dataFinal" name="dataFinal" [(ngModel)]="dataFinal">
+          </div>
+          <button type="submit" (click)="verificar_data()">Verificar</button>
+    </div>
+ 
 
 <h2>Cadastrar</h2>
 <p>Use este formulário para cadastrar ocorrência.</p>

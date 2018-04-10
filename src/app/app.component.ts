@@ -80,6 +80,10 @@ export class AppComponent {
     }
   }
 
+  verificar_data(){
+    
+  }
+
   cancelar() {
     this.iniciar();
     this.salvar_ok = false;
