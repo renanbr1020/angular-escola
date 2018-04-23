@@ -15,7 +15,7 @@ export class VersaoComponent implements OnInit {
   @Input()
   menor = null;
 
-  teste = 0;
+  teste = null;
 
   versao_completa =null;
 
