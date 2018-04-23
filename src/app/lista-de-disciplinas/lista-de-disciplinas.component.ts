@@ -19,6 +19,7 @@ export class ListaDeDisciplinasComponent implements OnInit {
   onExcluir = new EventEmitter<any>();
 
   constructor() {
+    
   }
 
   ngOnInit() {
